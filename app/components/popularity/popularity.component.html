@@ -1,0 +1,5 @@
+<span class="popularity-component" data-balloon="Popularity" data-balloon-pos="up">
+    <span *ngFor="let bar of bars; let i = index">
+        <span class="bar bar_{{i}}" [ngClass]="{'filled': thisPopular(i)}"></span>
+    </span>    
+</span>

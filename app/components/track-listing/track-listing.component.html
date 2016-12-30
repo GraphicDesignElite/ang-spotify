@@ -1,0 +1,60 @@
+
+
+
+<div *ngIf="album" class="album-detail">
+    <div *ngIf="album" class="image-backdrop">
+        <img src="{{album.images[0].url}}" />
+    </div>
+    <div class="container">
+        <header class="album-id-container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="album-image" *ngIf="album.images.length == 0">
+                        <img src="http://placehold.it/1920x1200/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
+                    </span>
+                    <span class="album-image" *ngIf="album.images.length > 0">
+                        <img src="{{album.images[0].url}}" class="img-responsive" />
+                    </span>
+                </div>
+                <div class="col-sm-5 album-details-panel">
+                    <div>
+                        <p class="album-type">{{album.album_type}}</p>
+                        <h1>{{album.name}}</h1>
+                        <p>Artist: <a routerLink="/artist/{{album.artists[0].id}}" >{{album.artists[0].name}}</a></p>
+                        <popularity [popularity]="album.popularity"></popularity>
+                        <p>Released : {{album.release_date}}</p>
+                        <div *ngIf="album.genres.length > 0">
+                            <span class="label label-success">Genres:</span>
+                            <span *ngFor="let genre of album.genres" class="label label-default">{{genre}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    stuff
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 copyright-text-container">
+                    <div *ngIf="album.copyrights.length > 0">
+                        <span *ngFor="let copyright of album.copyrights" class="copyright-label">{{copyright.text}}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>    
+    <div *ngIf="album" class="track-listings">
+        <div class="container">
+            <div *ngFor="let track of album.tracks.items; let index = index" class="row track-listing" (click)="selectTrack(index)" [ngClass]="{'selected': index == selectedTrack}">
+                <div class="col-sm-4 col-xs-9 track-listing-cell">
+                    <span class="track-number">{{track.track_number}}</span> {{track.name}}
+                </div>
+                <div class="col-sm-2 hidden-xs track-listing-cell">
+                    <span *ngIf="track.explicit" class="label label-default explicit">Explicit</span> 
+                </div>
+                <div class="col-sm-2 col-xs-3 track-listing-cell track-listing-time">
+                    {{track.duration_ms | timefilter}}
+                </div>
+            </div>
+        </div>
+    </div>

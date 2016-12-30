@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>Spotify Search</h1>
+    <p>Using angular 2, We can look through spotify by accessing the spotify APIs.</p>
+    <form class="well">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="search-input-wrapper">
+                    <input type="text" class="form-control input-lg" placeholder="Search Artists" [(ngModel)]="searchStr" name="searchStr" (keyup)="searchMusic()">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row" *ngIf="results">
+        <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let artist of results">
+            <div class="card">
+                <a routerLink="/artist/{{artist.id}}" class="search-result-image-wrapper">
+                    <!-- image -->
+                    <span *ngIf="artist.images.length == 0">
+                        <img src="http://placehold.it/650/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
+                    </span>
+                    <span *ngIf="artist.images.length > 0">
+                        <img src="{{artist.images[0].url}}" class="img-responsive" />
+                    </span>
+                    <!-- image -->
+                </a>
+        
+                <div class="card-block title-container">
+                    <h5 class="card-title">{{artist.name}}</h5>
+                </div>
+                <div class="folow-artist-panel">
+                    <popularity [popularity]="artist.popularity"></popularity>
+                    <a class="followers-link" data-balloon="Followers" data-balloon-pos="up">{{artist.followers.total}} Followers</a>
+                </div>
+                <div class="card-block button-panel">
+                    <a routerLink="/artist/{{artist.id}}" class="btn btn-default small" ><i class="fa fa-bars" aria-hidden="true"></i> Details</a>
+                    <a href="{{artist.external_urls.spotify}}" target="_blank" class="btn btn-primary small">Open With Spotify <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

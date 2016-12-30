@@ -1,0 +1,300 @@
+
+.well{
+    background:#222;
+}
+.navbar.navbar-inverse{
+    margin-bottom:0px;
+    background:#000;
+    border-bottom:1px solid #333;
+    position: relative;
+    z-index: 2;
+}
+.label-default{
+    background: #222;
+}
+.navbar-inverse .navbar-nav>li>a.is-active{
+    color:#fff;
+}
+/* Artist Results 
+**************************************/
+.search-result .card{
+    padding:10px;
+    background: #222;
+    margin-bottom:20px;
+}
+.search-result .title-container{
+    width:100%;
+    border-bottom:1px solid #333;
+    
+}
+.search-result .title-container h5{
+    display:block;
+    height:21px;
+    width: 100%;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.search-result .title-container h5 a{
+    color:#fff;
+}
+.search-result .button-panel{
+    padding: 10px 0px;
+}
+.search-result .button-panel .btn{
+    font-size:11px;
+}
+.folow-artist-panel{
+    padding-top:10px;
+}
+.followers-link{
+    text-transform: uppercase;
+    color:#444;
+}
+.search-result-image-wrapper{
+    display:block;
+    height:340px;
+    overflow:hidden;
+    margin-bottom:10px;
+    border: 1px solid #333;
+    background:#000;
+    transition:all .5s ease-in-out;
+}
+.search-result-image-wrapper img{
+    min-height:340px;
+    width:100%;
+    transition:all .5s ease-in-out;
+}
+
+.search-result-image-wrapper:hover img{
+    opacity:.5;
+    transform: scale(1.2,1.2);
+}
+
+/* Artist Profile 
+**************************************/
+.item-detail{
+    position:relative;
+}
+.item-detail .artist-id-container{
+    margin-bottom:20px;
+    padding:20px 15px;
+    border-bottom:1px solid #333;
+}
+.item-detail .artist-id-container .artist-image{
+        display:block;
+        background:#000;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        border: 2px solid #333;
+        overflow: hidden;
+        height: 163px;
+}
+.item-detail .artist-id-container h1, .album-detail h1{
+    font-size:30px;
+}
+.item-detail .genre-label{
+    display:inline-block;
+    padding:5px 8px;
+    margin-right:5px;
+    margin-bottom:3px;
+}
+.image-backdrop{
+    position:relative;
+    opacity:.15;
+        position: absolute;
+    opacity: .15;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+.image-backdrop img{
+    width:100%;
+    position:absolute;
+    z-index:0;
+}
+
+/* Album Profile 
+**************************************/
+.album-detail{
+    position:relative;
+    border-bottom:1px solid #222;
+    position:relative;
+    
+}
+.album-detail .album-type{
+    text-transform:uppercase;
+}
+.album-detail .album-details-panel{
+    padding-top:20px;
+}
+
+.track-listings{
+    background:rgba(0,0,0,.8);
+}
+.track-listing{
+    padding:15px 0px;
+    border-bottom:1px solid #222;
+    cursor: pointer;
+    border:1px solid #000;
+}
+.track-listing:hover, .track-listing.selected{
+    background: #222;
+    border:1px solid #222;
+}
+.track-listing.selected{
+    border:1px solid #333;
+}
+.track-listing-cell{
+    border-right:1px solid #222;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.track-listing:hover .track-listing-cell, .track-listing.selected .track-listing-cell{
+    border-right:1px solid #444;
+}
+.track-listing-time{
+    text-align: right;
+}
+.track-number{
+    display: inline-block;
+    padding-right:10px;
+    margin-right:10px;
+    border-right:1px solid #222;
+}
+.copyright-text-container{
+    padding-top:10px;
+    padding-bottom:10px;
+
+}
+.copyright-label{
+    font-size:10px;
+}
+
+/* Popularity
+**************************************/
+.popularity-component{
+    display:block;
+    width:20%;
+    float:right;
+    margin-top:5px;
+
+}
+.track-listings .popularity-component{
+    width:100%;
+}
+.popularity-component .bar{
+    background:#fff;
+    width: 8.333%;
+    height:15px;
+    box-sizing: border-box;
+    border-right:1px solid #333;
+    display: block;
+    float:left;
+}
+.popularity-component .bar.filled{
+    background:#2a9fd6;
+}
+
+/* Tooltips
+**************************************/
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 6px;
+}
+a.tooltips span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltips span {
+  visibility: visible;
+  opacity: 0.8;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
+}
+
+
+@media only screen and (max-width : 1200px) {
+        .item-detail .artist-id-container .artist-image{
+            height:129px;
+        }
+        .search-result-image-wrapper{
+            height:270px;
+        }
+        .search-result-image-wrapper img{
+            min-height:270px;
+            width:100%;
+        }
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (max-width : 992px) {
+        .item-detail .artist-id-container .artist-image{
+            height:95px;
+        }
+        .search-result-image-wrapper{
+            height:325px;
+        }
+        .search-result-image-wrapper img{
+            min-height:325px;
+            width:100%;
+        }
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (max-width : 768px) {
+        .search-result{width:100%;}
+        .search-result-image-wrapper{
+            height:auto;
+        }
+        .search-result-image-wrapper img{
+            min-height:auto;
+            width:100%;
+        }
+        .item-detail .artist-id-container .artist-image{
+            height:300px;
+            width:300px;
+            margin:auto;
+
+        }
+        .item-detail .artist-id-container h1{
+            font-size:25px;
+            text-align: center;
+        }
+        .search-result .title-container h5{
+            height:auto;
+        }
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (max-width : 480px) {
+        
+    }
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (max-width : 320px) {
+        
+    }
