@@ -1,6 +1,3 @@
-
-
-
 <div *ngIf="album" class="album-detail">
     <div *ngIf="album" class="image-backdrop">
         <img src="{{album.images[0].url}}" />
@@ -36,7 +33,9 @@
             <div class="row">
                 <div class="col-md-12 copyright-text-container">
                     <div *ngIf="album.copyrights.length > 0">
-                        <span *ngFor="let copyright of album.copyrights" class="copyright-label">{{copyright.text}}</span>
+                        <span *ngFor="let copyright of album.copyrights; let index = index" class="copyright-label">{{copyright.text}}
+                            <span *ngIf="isComma(index, album.copyrights.length)">,&nbsp;</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -46,12 +45,20 @@
     <div *ngIf="album" class="track-listings">
         <div class="container">
             <div *ngFor="let track of album.tracks.items; let index = index" class="row track-listing" (click)="selectTrack(index)" [ngClass]="{'selected': index == selectedTrack}">
-                <div class="col-sm-4 col-xs-9 track-listing-cell">
+                <div class="col-sm-5 col-xs-9 track-listing-cell">
                     <span class="track-number">{{track.track_number}}</span> {{track.name}}
                 </div>
-                <div class="col-sm-2 hidden-xs track-listing-cell">
+                <div class="col-sm-1 hidden-xs track-listing-cell">
                     <span *ngIf="track.explicit" class="label label-default explicit">Explicit</span> 
                 </div>
+                <!-- Artists list -->
+                 <div class="col-sm-4 col-xs-9 track-listing-cell">
+                    <span *ngFor="let artist of track.artists; let index = index;">
+                        {{artist.name}}
+                        <span *ngIf="isComma(index, track.artists.length)">,&nbsp;</span>
+                    </span>
+                </div>
+                <!-- Artist list -->
                 <div class="col-sm-2 col-xs-3 track-listing-cell track-listing-time">
                     {{track.duration_ms | timefilter}}
                 </div>

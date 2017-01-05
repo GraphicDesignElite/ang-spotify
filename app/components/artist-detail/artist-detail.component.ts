@@ -15,11 +15,10 @@ export class ArtistDetailComponent implements OnInit{
     albums: Album[];
 
     constructor(private _spotifyService: SpotifyService, private _route:ActivatedRoute){
-
+        this._spotifyService.getAuthorization();
     }
     ngOnInit(){
         this._route.params.map(params => params['id']).subscribe(id => {
-
             this._spotifyService.getArtistById(id).subscribe(artist =>{
                 this.artist = artist;
                 console.log(artist)

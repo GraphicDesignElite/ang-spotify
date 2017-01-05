@@ -1,15 +1,17 @@
 <div class="container">
-    <h1>Spotify Search</h1>
-    <p>Using angular 2, We can look through spotify by accessing the spotify APIs.</p>
-    <form class="well">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="search-input-wrapper">
-                    <input type="text" class="form-control input-lg" placeholder="Search Artists" [(ngModel)]="searchStr" name="searchStr" (keyup)="searchMusic()">
+    <header>
+    <h1>Welcome To Spotify</h1>
+    <h4>The ngPlace for Music</h4>
+        <form class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-input-wrapper">
+                        <input type="text" class="form-control input-lg" placeholder="Search Artists" [(ngModel)]="searchStr" name="searchStr" (keyup)="searchMusic()">
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </header>
     <div class="row" *ngIf="results">
         <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let artist of results">
             <div class="card">
@@ -35,6 +37,14 @@
                     <a routerLink="/artist/{{artist.id}}" class="btn btn-default small" ><i class="fa fa-bars" aria-hidden="true"></i> Details</a>
                     <a href="{{artist.external_urls.spotify}}" target="_blank" class="btn btn-primary small">Open With Spotify <i class="fa fa-external-link" aria-hidden="true"></i></a>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="button-panel clearfix">
+                <a class="btn btn-primary" *ngIf="paginated > 0" (click)="paginateResults('-')">Previous</a>
+                <span *ngIf="results.length == limit">Page: {{paginated + 1}}</span>
+                <a class="btn btn-primary" *ngIf="results.length == limit" (click)="paginateResults('+')">Next</a>
             </div>
         </div>
     </div>

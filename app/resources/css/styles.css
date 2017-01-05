@@ -1,6 +1,40 @@
 
+a{
+    color:#2ebd59;
+}
+a:hover{
+    color:#1ED760;
+}
 .well{
     background:#222;
+}
+.as-link{
+    cursor:pointer;
+}
+
+.btn{
+    border-radius:0px;
+}
+.btn-primary{
+    background: #2ebd59;
+    border-color: #2ebd59;
+}
+.btn-primary:hover{
+    background: #1ED760;
+    border-color: #2ebd59;
+}
+.button-panel{
+    padding: 10px 0px;
+}
+.button-panel .btn{
+    font-size:11px;
+}
+.label-default{
+    background: #222;
+}
+
+.navbar-inverse .navbar-nav>li>a.is-active{
+    color:#2ebd59;
 }
 .navbar.navbar-inverse{
     margin-bottom:0px;
@@ -9,12 +43,42 @@
     position: relative;
     z-index: 2;
 }
-.label-default{
-    background: #222;
+.profile-image-nav{
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    position: absolute;
+    right: -15px;
+    top: 0px;
 }
-.navbar-inverse .navbar-nav>li>a.is-active{
+.profile-image-nav img{
+    width:100%;
+}
+.user-info-display{
+    padding-right:40px;
+    color:#2ebd59;
+}
+.user-info-wrap{
+    background:#222222;
+}
+.login-box{
+    padding:20px;
+    border:1px solid #fff;
+    margin-top:30px;
+    text-align: center;
+}
+.showDetailsLink{
+    font-size: 11px;
+}
+.details{
+    font-size: 11px;
+    margin:10px 0px;
+    padding:20px;
+    background:#2ebd59;
     color:#fff;
 }
+
 /* Artist Results 
 **************************************/
 .search-result .card{
@@ -37,12 +101,6 @@
 }
 .search-result .title-container h5 a{
     color:#fff;
-}
-.search-result .button-panel{
-    padding: 10px 0px;
-}
-.search-result .button-panel .btn{
-    font-size:11px;
 }
 .folow-artist-panel{
     padding-top:10px;
@@ -76,12 +134,12 @@
 .item-detail{
     position:relative;
 }
-.item-detail .artist-id-container{
+.item-detail .person-id-container{
     margin-bottom:20px;
     padding:20px 15px;
     border-bottom:1px solid #333;
 }
-.item-detail .artist-id-container .artist-image{
+.item-detail .person-id-container .person-image{
         display:block;
         background:#000;
         -moz-border-radius: 50%;
@@ -91,7 +149,7 @@
         overflow: hidden;
         height: 163px;
 }
-.item-detail .artist-id-container h1, .album-detail h1{
+.item-detail .person-id-container h1, .album-detail h1{
     font-size:30px;
 }
 .item-detail .genre-label{
@@ -155,6 +213,9 @@
 }
 .track-listing:hover .track-listing-cell, .track-listing.selected .track-listing-cell{
     border-right:1px solid #444;
+}
+.track-listing-cell:last-child{
+    border-right: 0px !important;
 }
 .track-listing-time{
     text-align: right;
@@ -238,7 +299,7 @@ a:hover.tooltips span {
 
 
 @media only screen and (max-width : 1200px) {
-        .item-detail .artist-id-container .artist-image{
+        .item-detail .person-id-container .person-image{
             height:129px;
         }
         .search-result-image-wrapper{
@@ -252,7 +313,7 @@ a:hover.tooltips span {
 
     /* Medium Devices, Desktops */
     @media only screen and (max-width : 992px) {
-        .item-detail .artist-id-container .artist-image{
+        .item-detail .person-id-container .person-image{
             height:95px;
         }
         .search-result-image-wrapper{
@@ -266,6 +327,16 @@ a:hover.tooltips span {
 
     /* Small Devices, Tablets */
     @media only screen and (max-width : 768px) {
+        
+        .navbar-nav{
+            margin-bottom:0px; 
+        }
+        .navbar-nav>li>a{
+            line-height: 30px;
+        }
+        .profile-image-nav{
+            right:0px;
+        }
         .search-result{width:100%;}
         .search-result-image-wrapper{
             height:auto;
@@ -274,13 +345,13 @@ a:hover.tooltips span {
             min-height:auto;
             width:100%;
         }
-        .item-detail .artist-id-container .artist-image{
+        .item-detail .person-id-container .person-image{
             height:300px;
             width:300px;
             margin:auto;
 
         }
-        .item-detail .artist-id-container h1{
+        .item-detail .person-id-container h1{
             font-size:25px;
             text-align: center;
         }

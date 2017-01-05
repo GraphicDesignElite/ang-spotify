@@ -16,7 +16,7 @@ export class TrackListingComponent implements OnInit{
     trackListing:any;
 
     constructor(private _spotifyService:SpotifyService, private _route:ActivatedRoute){
-       
+       this._spotifyService.getAuthorization();
     }
     ngOnInit(){
         
@@ -32,7 +32,13 @@ export class TrackListingComponent implements OnInit{
         })
     }
     selectTrack(index:string){
+        if(this.selectedTrack == index){
+            this.selectedTrack = null;
+        }else{
         this.selectedTrack = index;
-        console.log("Selected Track " + this.selectedTrack)
+        }
+    }
+    isComma(index:string, size:string){
+        return (parseInt(index) < parseInt(size) - 1);
     }
 }

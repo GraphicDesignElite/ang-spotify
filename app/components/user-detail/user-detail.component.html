@@ -1,0 +1,56 @@
+
+    <div *ngIf="user" class="container item-detail">
+        <header class="person-id-container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="person-image" *ngIf="user.images.length == 0">
+                        <img src="http://placehold.it/1920x1200/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
+                    </span>
+                    <span class="person-image" *ngIf="user.images.length > 0">
+                        <img src="{{user.images[0].url}}" class="img-responsive" />
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <div>
+                        <h1>{{user.display_name}}</h1>
+                        <p>{{user.email}}</p>
+                        <p>Country: {{user.country}}</p>
+                        <p>Subscription Type: {{user.product}}</p>
+                        <h6><span class="followers-link">{{user.followers.total}} Followers</span></h6>
+                        <div class="button-panel">
+                            <a href="{{user.external_urls.spotify}}" class="btn btn-primary small">Open With Spotify <i aria-hidden="true" class="fa fa-external-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="container" *ngIf="userFollowing">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Following ( {{userFollowing.artists.items.length}} ) Artists</h4>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let artist of userFollowing.artists.items">
+                <div class="card">
+                    <a routerLink="/artist/{{artist.id}}" class="search-result-image-wrapper">
+                        <!-- image -->
+                        <span *ngIf="artist.images.length == 0">
+                            <img src="http://placehold.it/650/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
+                        </span>
+                        <span *ngIf="artist.images.length > 0">
+                            <img src="{{artist.images[0].url}}" class="img-responsive" />
+                        </span>
+                        <!-- image -->
+                    </a>
+                     <div class="card-block title-container">
+                        <h5 class="card-title"><a routerLink="/artist/{{artist.id}}">{{artist.name}}</a></h5>
+                    </div>
+                    <div class="card-block button-panel">
+                        <a routerLink="/artist/{{artist.id}}" class="btn btn-default small"><i class="fa fa-bars" aria-hidden="true"></i> Details</a>
+                        <a href="{{artist.external_urls.spotify}}" target="_blank" class="btn btn-primary small">Open With Spotify <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

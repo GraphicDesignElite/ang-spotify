@@ -3,13 +3,13 @@
 </div>
 <div class="container item-detail">
     <div *ngIf="artist">
-        <header class="artist-id-container">
+        <header class="person-id-container">
             <div class="row">
                 <div class="col-sm-2">
-                    <span class="artist-image" *ngIf="artist.images.length == 0">
+                    <span class="person-image" *ngIf="artist.images.length == 0">
                         <img src="http://placehold.it/1920x1200/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
                     </span>
-                    <span class="artist-image" *ngIf="artist.images.length > 0">
+                    <span class="person-image" *ngIf="artist.images.length > 0">
                         <img src="{{artist.images[0].url}}" class="img-responsive" />
                     </span>
                 </div>
@@ -17,7 +17,7 @@
                     <div>
                         <h1>{{artist.name}}</h1>
                         <h6><span class="followers-link">{{artist.followers.total}} Followers</span></h6>
-                        <span class="label label-success">Tags:</span> 
+                        <strong>Tags:</strong> 
                         <div *ngIf="artist.genres.length">
                             <a class="label label-default genre-label" *ngFor="let genre of artist.genres">
                                 {{genre}}
@@ -49,7 +49,7 @@
                         <h5 class="card-title"><a routerLink="/albums/{{album.id}}">{{album.name}}</a></h5>
                     </div>
                     <div class="card-block button-panel">
-                        <a routerLink="/albums/{{album.id}}" class="btn btn-default small">Details</a>
+                        <a routerLink="/albums/{{album.id}}" class="btn btn-default small"><i class="fa fa-bars" aria-hidden="true"></i> Details</a>
                         <a href="{{album.external_urls.spotify}}" target="_blank" class="btn btn-primary small">Open With Spotify <i class="fa fa-external-link" aria-hidden="true"></i></a>
                     </div>
                 </div>

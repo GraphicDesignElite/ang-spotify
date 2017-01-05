@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="login-box">
+                <h5>You Must Log In To Access This Feature</h5>
+                <p>In order to use this application to the fullest extent, you must authenticate with spotify. You will be temporarily redirected to Spotify to log in to your account.</p>
+                <a class="btn btn-primary" href="http://localhost:5000/auth/">Log In To Spotify <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                <br><br>
+                <a class="showDetailsLink as-link" (click) = "displayDetails()">Why Do You Need This?</a>
+                <div class="details" *ngIf="showDetails">
+                    <p>Fear not! This application uses the Spotify&trade; API to allow you to temporarily access your favorite artists, playlists, and account details directly from your Spotify Account. You will be able to use this interface to access your account and change your playlists.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
