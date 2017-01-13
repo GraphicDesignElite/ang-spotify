@@ -18,11 +18,9 @@ export class UserDetailComponent implements OnInit{
     ngOnInit(){
        this._spotifyService.getUser().subscribe(user =>{
            this.user = user;
-           console.log(this.user);
        })
        this._spotifyService.getUserFollowing().subscribe(userFollowing =>{
            this.userFollowing = userFollowing;
-           console.log(this.userFollowing);
        })
        
     }

@@ -9,6 +9,8 @@ import { SearchComponent } from './components/search/search.component';
 import { ArtistDetailComponent } from './components/artist-detail/artist-detail.component';
 import { TrackListingComponent } from './components/track-listing/track-listing.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { CategoryComponent } from './components/category/category.component';
 
 const appRoutes: Routes = [
     {
@@ -31,6 +33,16 @@ const appRoutes: Routes = [
     {
         path:'user/:id',
         component: UserDetailComponent,
+        canActivate: [LoginGuard]
+    },
+    {
+        path:'categories',
+        component: CategoriesComponent,
+        canActivate: [LoginGuard]
+    },
+    {
+        path:'category/:id',
+        component: CategoryComponent,
         canActivate: [LoginGuard]
     },
     {

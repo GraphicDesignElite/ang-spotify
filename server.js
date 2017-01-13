@@ -28,8 +28,8 @@ const siteURL = "http://localhost:5000";
 const apiURL = "http://localhost:5000";
 
 /* Spotify Routes */
-var client_id = ''; // Your client id
-var client_secret = ''; // Your secret
+var client_id = '47464baddd1246bbab6db91e566605ef'; // Your client id
+var client_secret = '0ff8d00e7abe4264b41bf3c96ed0a4fe'; // Your secret
 var redirect_uri = apiURL + '/callback'; // Your redirect uri
 var access;
   /**
@@ -94,25 +94,15 @@ app.get('/callback', function(req, res) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
-
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
+            refresh_token = body.refresh_token,
+            expires_in = body.expires_in;
 
 
-        // we can also pass the token to the browser to make requests from there
         res.redirect( siteURL + '/search?' +
           querystring.stringify({
             access_token: access_token,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            expires_in: expires_in
           }));
       } else {
         res.redirect(siteURL + '/search?' +

@@ -21,8 +21,8 @@ import { SearchComponent } from './components/search/search.component';
 import { ArtistDetailComponent } from './components/artist-detail/artist-detail.component';
 import { TrackListingComponent } from './components/track-listing/track-listing.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
-
-
+import { CategoriesComponent } from './components/categories/categories.component';
+import { CategoryComponent } from './components/category/category.component';
 import { PopularityComponent } from './components/popularity/popularity.component';
 
 @NgModule({
@@ -35,6 +35,8 @@ import { PopularityComponent } from './components/popularity/popularity.componen
                   SearchComponent,
                   ArtistDetailComponent,
                   UserDetailComponent,
+                  CategoriesComponent,
+                  CategoryComponent,
                   TrackListingComponent,
                   PopularityComponent,
                   TimeFilterPipe

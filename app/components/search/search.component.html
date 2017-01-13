@@ -1,8 +1,7 @@
 <div class="container">
     <header>
-    <h1>Welcome To Spotify</h1>
-    <h4>The ngPlace for Music</h4>
-        <form class="well">
+    <h1>Angular Spotify Interface</h1>
+        <form class="well-search">
             <div class="row">
                 <div class="col-md-12">
                     <div class="search-input-wrapper">
@@ -13,6 +12,14 @@
         </form>
     </header>
     <div class="row" *ngIf="results">
+        <!-- pagination --> 
+        <div class="col-sm-12">
+            <div class="button-panel clearfix right">
+                <a class="btn btn-default" *ngIf="paginated > 0 && results.length" (click)="paginateResults('-')"><i class="fa fa-chevron-left" aria-hidden="true"></i> Previous</a>
+                <span *ngIf="results.length == limit" class="pagingation-page">Page: {{paginated + 1}}</span>
+                <a class="btn btn-default" *ngIf="results.length == limit" (click)="paginateResults('+')">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
         <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let artist of results">
             <div class="card">
                 <a routerLink="/artist/{{artist.id}}" class="search-result-image-wrapper">
@@ -39,12 +46,12 @@
                 </div>
             </div>
         </div>
-
+        <!-- pagination --> 
         <div class="col-sm-12">
-            <div class="button-panel clearfix">
-                <a class="btn btn-primary" *ngIf="paginated > 0" (click)="paginateResults('-')">Previous</a>
-                <span *ngIf="results.length == limit">Page: {{paginated + 1}}</span>
-                <a class="btn btn-primary" *ngIf="results.length == limit" (click)="paginateResults('+')">Next</a>
+            <div class="button-panel clearfix right">
+                <a class="btn btn-default" *ngIf="paginated > 0 && results.length" (click)="paginateResults('-')"><i class="fa fa-chevron-left" aria-hidden="true"></i> Previous</a>
+                <span *ngIf="results.length == limit" class="pagingation-page">Page: {{paginated + 1}}</span>
+                <a class="btn btn-default" *ngIf="results.length == limit" (click)="paginateResults('+')">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>

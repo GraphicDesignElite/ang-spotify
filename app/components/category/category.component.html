@@ -1,0 +1,25 @@
+<div class="container" *ngIf="category">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Playlists / <span class="page-name">{{categoryName}}</span></h1>
+        </div>
+        <div class="col-sm-4">
+            <div class="button-panel clearfix right">
+                <a class="btn btn-default" *ngIf="paginated > 0 && category.items.length" (click)="paginateResults('-')"><i class="fa fa-chevron-left" aria-hidden="true"></i> Previous</a>
+                <span *ngIf="category.items.length == limit" class="pagingation-page">Page: {{paginated + 1}}</span>
+                <a class="btn btn-default" *ngIf="category.items.length == limit" (click)="paginateResults('+')">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-6 categorylist" *ngFor="let playlist of category.items">
+            <a routerLink="/playlist/{{playlist.id}}">
+                <div class="category-list-item row">
+                    <div><img class="img-responsive col-md-12" src="{{playlist.images[0].url}}"  /></div>
+                    <div class="category-list-name">{{playlist.name}}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+</div>

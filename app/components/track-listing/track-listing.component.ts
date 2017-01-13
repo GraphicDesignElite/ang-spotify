@@ -19,7 +19,6 @@ export class TrackListingComponent implements OnInit{
        this._spotifyService.getAuthorization();
     }
     ngOnInit(){
-        
         this._route.params.map(params => params['id']).subscribe(id =>{
             this._spotifyService.getAlbum(id).subscribe(album => {
                 this.album = album;

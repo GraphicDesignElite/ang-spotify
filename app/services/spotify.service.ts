@@ -1,6 +1,6 @@
-import {Http, Headers} from '@angular/http';
-import {Injectable} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BaseRequestOptions, RequestOptions } from '@angular/http';
 
 import { Subject } from 'rxjs/Subject';
@@ -15,9 +15,13 @@ export class SpotifyService{
     private TracksUrl: string;
     private UserUrl: string;
     private UserFollowingUrl: string;
+    private GetCategoriesUrl: string;
+    private GetCategoryUrl: string;
 
+    // Authorization
     private token:string;
     private refresh_token: string;
+    private expires_in: number;
     isAuthorized: Subject<boolean> = new Subject<boolean>();
     isAuthorized$ = this.isAuthorized.asObservable();
 
@@ -40,7 +44,7 @@ export class SpotifyService{
     }
     getArtistAlbums(id:string){
     // Return Many Albums by Artist ID
-        this.AlbumsUrl = 'https://api.spotify.com/v1/artists/'+ id +'/albums';
+        this.AlbumsUrl = 'https://api.spotify.com/v1/artists/'+ id +'/albums?album_type=album&limit=50&market=us';
         return this._http.get(this.AlbumsUrl)
         .map(res => res.json());        	
     }
@@ -60,17 +64,22 @@ export class SpotifyService{
     // Authorization Related Calls ********************* */
     //******************************************* */
     getAuthorization(){
-    // Recieve the Authorization From Spotify and Store it as Our Application Token
+
+        // Recieve the Authorization From Spotify and Store it as Our Application Token
         if(this._activatedRoute.snapshot.queryParams['access_token']){
             // Fresh Token Recieved
             this.token = this._activatedRoute.snapshot.queryParams['access_token'];
             this.refresh_token = this._activatedRoute.snapshot.queryParams['refresh_token'];
+            this.expires_in = this._activatedRoute.snapshot.queryParams['expires_in'];
+
             localStorage.setItem('access_token', this.token);
             localStorage.setItem('refresh_token', this.refresh_token);
             this.isAuthorized.next(true);
+
+            this._router.navigate(['search']);
         }
         else if(localStorage.getItem('access_token')){
-        // Use a Stored Token as our Application Token
+            // Use a Stored Token as our Application Token if it is not expired
             this.token = localStorage.getItem('access_token');
             this.refresh_token = localStorage.getItem('refresh_token');
             this.isAuthorized.next(true);
@@ -121,6 +130,28 @@ export class SpotifyService{
             .map(res => res.json());
         }
     }
+    // Get Category Data ********************* */
+    //******************************************* */
+    getCategories(offset=0, limit=30){
+    // Gets the full list of categories
+        if(this.isAuthorized){
+            let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
+            let auth = new RequestOptions({ headers: headers });
+            this.GetCategoriesUrl = 'https://api.spotify.com/v1/browse/categories?offset='+ offset + '&limit=' + limit;
 
+            return this._http.get(this.GetCategoriesUrl, auth)
+            .map(res => res.json());
+        }
+    }
+    getCategory(id:string, offset=0, limit=20 ){
+       if(this.isAuthorized){
+           let headers = new Headers({ 'Authorization': 'Bearer ' + this.token  });
+           let auth = new RequestOptions({ headers: headers });
+           this.GetCategoryUrl = 'https://api.spotify.com/v1/browse/categories/' + id + '/playlists?offset='+ offset + '&limit=' + limit;
+
+            return this._http.get(this.GetCategoryUrl, auth)
+            .map(res => res.json());
+       } 
+    }
 
 }
