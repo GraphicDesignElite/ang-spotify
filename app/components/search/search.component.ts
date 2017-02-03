@@ -11,16 +11,25 @@ import {Router, ActivatedRoute} from '@angular/router';
   selector: 'search',
   templateUrl: `search.component.html`,
 })
-export class SearchComponent  {
+export class SearchComponent implements OnInit  {
 
     searchStr: string;
     results: Artist[]; // we get all the data here
+    newReleases:any[];
     paginated: number = 0; // how far we paginated records
     limit: number = 21; // Records to return
 
 
     constructor(private _spotifyService:SpotifyService, private _activatedRoute: ActivatedRoute){
          this._spotifyService.getAuthorization();
+         
+    }
+    ngOnInit(){
+        //get new releases
+        this._spotifyService.getNewReleases().subscribe(res =>{
+            this.newReleases = res.albums.items;
+            console.log(this.newReleases);
+        });
     }
     searchMusic(){
       if(this.searchStr == ''){

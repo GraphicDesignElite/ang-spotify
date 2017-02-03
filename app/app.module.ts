@@ -23,7 +23,9 @@ import { TrackListingComponent } from './components/track-listing/track-listing.
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryComponent } from './components/category/category.component';
+
 import { PopularityComponent } from './components/popularity/popularity.component';
+import { CardSliderComponent } from './components/card-slider/card-slider.component';
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, FormsModule, routing ],
@@ -39,6 +41,7 @@ import { PopularityComponent } from './components/popularity/popularity.componen
                   CategoryComponent,
                   TrackListingComponent,
                   PopularityComponent,
+                  CardSliderComponent,
                   TimeFilterPipe
                 ],
   bootstrap:    [ AppComponent ],

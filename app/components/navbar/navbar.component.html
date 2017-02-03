@@ -20,7 +20,10 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isLoggedIn"><a class="as-link" (click)="logOut()">Log Out</a></li>
-        <li *ngIf="!isLoggedIn || !userData"><a href="http://localhost:5000/auth/?access=profile">Log In</a></li>
+        <li *ngIf="!isLoggedIn || !userData">
+          <!-- <a href="https://api-spotify-authentication.herokuapp.com/auth/">Log In</a> -->
+               <a href="http://localhost:5000/auth/">Log In</a>
+        </li>
         <!-- display user info when logged in -->
         <li *ngIf="isLoggedIn && userData" class="user-info-wrap as-link"><a routerLink="/user/{{userData.id}}"><span class="user-info-display">{{userData.display_name}}</span> <span class="profile-image-nav"><img src="{{userData.images[0].url}}" /></span></a></li>
         <!-- display user info when logged in -->

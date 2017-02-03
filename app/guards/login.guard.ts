@@ -5,7 +5,7 @@ import { Router, CanActivate } from '@angular/router';
 @Injectable()
 export class LoginGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+    constructor(private _router: Router) { }
 
     canActivate() {
         if (localStorage.getItem('access_token')) {
@@ -16,7 +16,7 @@ export class LoginGuard implements CanActivate {
 
         // not logged in so redirect to login page
         console.log("Login Guard Failed");
-        this.router.navigate(['/login']);
+        this._router.navigate(['/login']);
         return false;
     }
 }

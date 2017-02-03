@@ -17,7 +17,7 @@
                     <div>
                         <h1>{{artist.name}}</h1>
                         <h6><span class="followers-link">{{artist.followers.total}} Followers</span></h6>
-                        <strong>Tags:</strong> 
+                        <strong>Tags:</strong>
                         <div *ngIf="artist.genres.length">
                             <a class="label label-default genre-label" *ngFor="let genre of artist.genres">
                                 {{genre}}
@@ -28,10 +28,37 @@
             </div>
         </header>
     </div>
+</div>
+<div class="track-listings" *ngIf="topTracks">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Top Tracks</h2>
+            </div>
+        </div>
+        <div *ngFor="let track of topTracks.tracks; let index = index" class="row track-listing" (click)="selectTrack(index)" [ngClass]="{'selected': index == selectedTrack}">
+            <div class="col-sm-5 col-xs-9 track-listing-cell">
+                {{track.name}}
+            </div>
+            <div class="col-sm-1 hidden-xs track-listing-cell">
+                <span *ngIf="track.explicit" class="label label-default explicit">Explicit</span>
+            </div>
+            <!-- Artists list -->
+            <div class="col-sm-4 col-xs-9 track-listing-cell">
+
+            </div>
+            <!-- Artist list -->
+            <div class="col-sm-2 col-xs-3 track-listing-cell track-listing-time">
+                {{track.duration_ms | timefilter}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
     <div *ngIf="albums">
         <div class="row">
             <div class="col-md-12">
-                <h4>Albums ( {{albums.length}} )</h4>
+                <h2>Albums ( {{albums.length}} )</h2>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let album of albums">
                 <div class="card">
@@ -45,7 +72,7 @@
                         </span>
                         <!-- image -->
                     </a>
-                     <div class="card-block title-container">
+                    <div class="card-block title-container">
                         <h5 class="card-title"><a routerLink="/albums/{{album.id}}">{{album.name}}</a></h5>
                     </div>
                     <div class="card-block button-panel">
@@ -56,4 +83,15 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="relatedArtists" class="related-artists-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Related Artists</h2>
+            </div>
+        </div>
+    </div>
+    <card-slider [slides]="relatedArtists" [show]="4"></card-slider>
 </div>

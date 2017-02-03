@@ -5,11 +5,16 @@ import { BaseRequestOptions, RequestOptions } from '@angular/http';
 
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class SpotifyService{
+    private Auth_URL: string = 'http://localhost:5000/';
+    private token_expiration_time:number = 3600; // spotify token expiration time
+
     private searchUrl: string;
     private ArtistUrl: string;
+    private ArtistRelatedUrl: string;
     private AlbumsUrl: string;
     private AlbumUrl: string;
     private TracksUrl: string;
@@ -17,11 +22,13 @@ export class SpotifyService{
     private UserFollowingUrl: string;
     private GetCategoriesUrl: string;
     private GetCategoryUrl: string;
+    private GetArtistTopTracksUrl:string;
+    private GetNewReleases:string;
 
     // Authorization
     private token:string;
     private refresh_token: string;
-    private expires_in: number;
+    private expires_in: string;
     isAuthorized: Subject<boolean> = new Subject<boolean>();
     isAuthorized$ = this.isAuthorized.asObservable();
 
@@ -48,6 +55,11 @@ export class SpotifyService{
         return this._http.get(this.AlbumsUrl)
         .map(res => res.json());        	
     }
+    getArtistRelated(id:string){
+        this.ArtistRelatedUrl = "https://api.spotify.com/v1/artists/"+ id +"/related-artists";
+        return this._http.get(this.ArtistRelatedUrl)
+        .map(res => res.json());
+    }
     getAlbum(id:string){
     // Return One Album by Album ID
         this.AlbumUrl = 'https://api.spotify.com/v1/albums/'+ id;
@@ -63,37 +75,65 @@ export class SpotifyService{
 
     // Authorization Related Calls ********************* */
     //******************************************* */
+    refreshToken(){
+        return this._http.get(this.Auth_URL + 'refresh_token/?refresh_token=' + this.refresh_token);
+    }
     getAuthorization(){
-
         // Recieve the Authorization From Spotify and Store it as Our Application Token
         if(this._activatedRoute.snapshot.queryParams['access_token']){
             // Fresh Token Recieved
             this.token = this._activatedRoute.snapshot.queryParams['access_token'];
             this.refresh_token = this._activatedRoute.snapshot.queryParams['refresh_token'];
-            this.expires_in = this._activatedRoute.snapshot.queryParams['expires_in'];
 
-            localStorage.setItem('access_token', this.token);
+            // Set Up Token Expiration
+            this.expires_in = ((new Date().getTime() / 1000) + this.token_expiration_time).toString(); // add the expiration time to now in seconds        
+            // for testing
+            //this.expires_in = ((new Date().getTime() / 1000)).toString(); // add the expiration time to now in seconds
+
+            localStorage.setItem('access_token', this.token); // set local storage
             localStorage.setItem('refresh_token', this.refresh_token);
+            localStorage.setItem('expires_in', this.expires_in);
+            
             this.isAuthorized.next(true);
-
             this._router.navigate(['search']);
         }
         else if(localStorage.getItem('access_token')){
             // Use a Stored Token as our Application Token if it is not expired
             this.token = localStorage.getItem('access_token');
             this.refresh_token = localStorage.getItem('refresh_token');
-            this.isAuthorized.next(true);
+            this.expires_in = localStorage.getItem('expires_in');
+            
+            // Has the token expired?
+            var now: Date, expires : Date;
+            now = new Date();
+            expires = new Date();
+            expires.setTime(parseInt(this.expires_in) * 1000);
+            
+            if(now > expires){
+                console.log("Token Expired At: " + expires); 
+                this.refreshToken().subscribe(res=>{
+                   localStorage.setItem('access_token', res.json().access_token); // set local storage
+                   localStorage.setItem('expires_in', ((new Date().getTime() / 1000) + this.token_expiration_time).toString()); // add the expiration time to now in seconds
+                   this.isAuthorized.next(true);
+                });
+            }
+            else{
+                console.log("Token Still Valid Until :" + expires)
+                this.isAuthorized.next(true);
+            }
+            
         }
         else{
          // No Authorization Aquired
              this.isAuthorized.next(false);
-        } 
-    }
+        }
+    } 
     removeAuthorization(){
         // Get rid of all authorization tokens and log user out of application ( note does not revoke spotify permissions )
         if(this.isAuthorized){
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
+            localStorage.removeItem('expires_in');
 
             this.isAuthorized.next(false);
             this._router.navigate(['search']); // change to you have been logged out
@@ -152,6 +192,24 @@ export class SpotifyService{
             return this._http.get(this.GetCategoryUrl, auth)
             .map(res => res.json());
        } 
+    }
+    getArtistTopTracks(id:string){
+        if(this.isAuthorized){
+            let headers = new Headers({'Authorization': 'Bearer ' + this.token });
+            let auth = new RequestOptions({headers:headers});
+            this.GetArtistTopTracksUrl= "https://api.spotify.com/v1/artists/" + id + "/top-tracks?country=US";
+            return this._http.get(this.GetArtistTopTracksUrl, auth)
+            .map(res => res.json());
+        }
+    }
+    getNewReleases(){
+        if(this.isAuthorized){
+            let headers = new Headers({'Authorization': 'Bearer ' + this.token });
+            let auth = new RequestOptions({headers:headers});
+            this.GetNewReleases = "https://api.spotify.com/v1/browse/new-releases";
+            return this._http.get(this.GetNewReleases, auth)
+            .map(res => res.json());
+        }
     }
 
 }

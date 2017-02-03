@@ -11,6 +11,34 @@
             </div>
         </form>
     </header>
+    <div *ngIf="newReleases && !results">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>New Releases</h2>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-6 search-result" *ngFor="let album of newReleases">
+                <div class="card">
+                    <a routerLink="/albums/{{album.id}}" class="search-result-image-wrapper">
+                        <!-- image -->
+                        <span *ngIf="album.images.length == 0">
+                            <img src="http://placehold.it/650/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
+                        </span>
+                        <span *ngIf="album.images.length > 0">
+                            <img src="{{album.images[0].url}}" class="img-responsive" />
+                        </span>
+                        <!-- image -->
+                    </a>
+                    <div class="card-block title-container">
+                        <h5 class="card-title"><a routerLink="/albums/{{album.id}}">{{album.name}}</a></h5>
+                    </div>
+                    <div class="card-block button-panel">
+                        <a routerLink="/albums/{{album.id}}" class="btn btn-default small"><i class="fa fa-bars" aria-hidden="true"></i> Details</a>
+                        <a href="{{album.external_urls.spotify}}" target="_blank" class="btn btn-primary small">Open With Spotify <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row" *ngIf="results">
         <!-- pagination --> 
         <div class="col-sm-12">
@@ -32,7 +60,6 @@
                     </span>
                     <!-- image -->
                 </a>
-        
                 <div class="card-block title-container">
                     <h5 class="card-title">{{artist.name}}</h5>
                 </div>
