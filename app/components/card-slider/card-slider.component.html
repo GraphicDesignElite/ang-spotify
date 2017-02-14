@@ -1,31 +1,31 @@
 
 <div class="card-slider">
-    <div class="container" >
-        <div class="row">
-            <ng-container *ngFor="let artist of slides; let i = index">
-                <div class="col-md-3 col-sm-6 col-xs-6 search-result slide" [ngClass]="isShown(i)">
-                    <div class="card">
-                        <a routerLink="/artist/{{artist.id}}" class="search-result-image-wrapper">
-                            <!-- image -->
-                            <span *ngIf="artist.images.length == 0">
-                                    <img src="http://placehold.it/650/111111/ffffff?text=NO+Image+Available" class="img-responsive" />
-                                </span>
-                            <span *ngIf="artist.images.length > 0">
-                                    <img src="{{artist.images[0].url}}" class="img-responsive" />
-                                </span>
-                            <!-- image -->
-                        </a>
+    {{itemType}}
+    <div class="container" #wrapper (window:resize)="onResize($event)">
+        <div class="row view-area">
+            <div class="slider-track clearfix" [ngStyle]="{'width': trackWidth+'px', 'margin-left':sliderPos + 'px'}">
+                <ng-container *ngFor="let item of slides; let i = index">
+                    <div class="search-result slide" [ngStyle]="{'width': cardWidth+'px'}"><!-- set the card width on here -->
+                        <div class="card">
+                            <a routerLink="/{{itemtype}}/{{item.id}}" class="search-result-image-wrapper">
+                                <!-- image -->
+                                <span *ngIf="item.images.length == 0">
+                                        <img src="http://placehold.it/650/111111/ffffff?text=NO+Image+Available" class="img-responsive" [ngStyle]="{'height': cardWidth+'px'}" />
+                                    </span>
+                                <span *ngIf="item.images.length > 0">
+                                        <img src="{{item.images[0].url}}" class="img-responsive" [ngStyle]="{'height': cardWidth - 30 +'px'}" />
+                                    </span>
+                                <!-- image -->
+                            </a>
 
-                        <div class="card-block title-container">
-                            <h5 class="card-title">{{artist.name}}</h5>
-                        </div>
-                        <div class="folow-artist-panel">
-                            <popularity [popularity]="artist.popularity"></popularity>
-                            <a class="followers-link" data-balloon="Followers" data-balloon-pos="up">{{artist.followers.total}} Followers</a>
+                            <div class="card-block title-container">
+                                <h5 class="card-title">{{item.name}}</h5>
+                            </div>
+                            
                         </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
             <div class="slider-buttons">
                 <button class="btn btn-default" (click)="previousSlide()">Previous</button>
                 <button class="btn btn-default" (click)="nextSlide()">Next</button>

@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { SpotifyService } from '../../services/spotify.service';
 import { Artist } from '../../models/artist.model';
 import { PopularityComponent } from '../../components/popularity/popularity.component';
-import {Router, ActivatedRoute} from '@angular/router';
+import { CardSliderComponent } from '../../components/card-slider/card-slider.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
